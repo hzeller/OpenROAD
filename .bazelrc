@@ -4,6 +4,10 @@ common --enable_bzlmod
 # versions found in dependency graph.
 common --check_direct_dependencies=off
 
+# bazel 7 is somewhat forgiving for glob patterns that don't
+# match, but bazel 8 will be. So start now.
+common --incompatible_disallow_empty_glob
+
 build --cxxopt "-std=c++17"        --host_cxxopt "-std=c++17"
 build --cxxopt "-ffp-contract=off" --host_cxxopt "-ffp-contract=off"
 

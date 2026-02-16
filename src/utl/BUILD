@@ -105,6 +105,13 @@ cc_binary(
     ],
     defines = [PYTHON_STABLE_API_DEFINE],
     includes = ["src"],
+    linkopts = select({
+        "@platforms//os:macos": [
+            "-undefined",
+            "dynamic_lookup",
+        ],
+        "//conditions:default": [],
+    }),
     linkshared = True,
     deps = [
         "//src/utl",

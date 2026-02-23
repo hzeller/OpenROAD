@@ -59,13 +59,35 @@
 
 namespace rsz {
 
+using sta::ArcDelay;
+using sta::Clock;
+using sta::Delay;
+using sta::GateTimingModel;
+using sta::INF;
+using sta::Instance;
+using sta::LibertyCell;
+using sta::MinMax;
+using sta::NetConnectedPinIterator;
+using sta::Pin;
+using sta::PinSet;
+using sta::PortDirection;
+using sta::Pvt;
+using sta::RiseFall;
+using sta::RiseFallBoth;
+using sta::Scene;
+using sta::Slew;
+using sta::sort;
+using sta::TimingArc;
+using sta::TimingArcSet;
+using sta::TimingRole;
+using sta::Vertex;
+using sta::VertexSeq;
+
 using std::abs;
 using std::max;
 using std::min;
 
 using utl::RSZ;
-
-using namespace sta;  // NOLINT
 
 RepairDesign::RepairDesign(Resizer* resizer) : resizer_(resizer)
 {

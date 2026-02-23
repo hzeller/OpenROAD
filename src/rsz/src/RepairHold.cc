@@ -43,7 +43,26 @@
 
 namespace rsz {
 
-using namespace sta;  // NOLINT
+using sta::ArcDelay;
+using sta::Edge;
+using sta::fuzzyLess;
+using sta::INF;
+using sta::LibertyCell;
+using sta::LibertyPort;
+using sta::Mode;
+using sta::Path;
+using sta::PathExpanded;
+using sta::Pin;
+using sta::RiseFall;
+using sta::Scene;
+using sta::Slack;
+using sta::Slew;
+using sta::sort;
+using sta::StaState;
+using sta::Vertex;
+using sta::VertexOutEdgeIterator;
+using sta::VertexSeq;
+using sta::VertexSet;
 
 using std::max;
 using std::min;

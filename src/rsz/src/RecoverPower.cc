@@ -16,6 +16,7 @@
 #include "est/EstimateParasitics.h"
 #include "odb/db.h"
 #include "rsz/Resizer.hh"
+#include "sta/ContainerHelpers.hh"
 #include "sta/Delay.hh"
 #include "sta/Fuzzy.hh"
 #include "sta/Graph.hh"
@@ -404,7 +405,7 @@ LibertyCell* RecoverPower::downsizeCell(const LibertyPort* in_port,
   if (!swappable_cells.empty()) {
     const char* in_port_name = in_port->name();
     const char* drvr_port_name = drvr_port->name();
-    sort(
+    sta::sort(
         &swappable_cells,
         [=, this](const LibertyCell* cell1, const LibertyCell* cell2) {
           const LibertyPort* port1 = const_cast<const LibertyPort*>(

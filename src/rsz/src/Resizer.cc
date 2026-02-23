@@ -56,6 +56,7 @@
 #include "sta/Bfs.hh"
 #include "sta/Clock.hh"
 #include "sta/ConcreteLibrary.hh"
+#include "sta/ContainerHelpers.hh"
 #include "sta/Delay.hh"
 #include "sta/FuncExpr.hh"
 #include "sta/Fuzzy.hh"
@@ -94,7 +95,65 @@
 
 namespace rsz {
 
-using namespace sta;  // NOLINT
+using sta::ArcDcalcResult;
+using sta::ArcDelay;
+using sta::ArcDelayCalc;
+using sta::BfsBkwdIterator;
+using sta::BfsFwdIterator;
+using sta::BfsIndex;
+using sta::Clock;
+using sta::ConcreteLibraryCellIterator;
+using sta::Edge;
+using sta::FindNetDrvrLoads;
+using sta::FuncExpr;
+using sta::fuzzyEqual;
+using sta::fuzzyGreaterEqual;
+using sta::GateTimingModel;
+using sta::INF;
+using sta::InputDrive;
+using sta::Instance;
+using sta::InstancePinIterator;
+using sta::InstanceSeq;
+using sta::LeafInstanceIterator;
+using sta::LeakagePower;
+using sta::LeakagePowerSeq;
+using sta::Level;
+using sta::LibertyCell;
+using sta::LibertyCellIterator;
+using sta::LibertyLibraryIterator;
+using sta::LibertyPort;
+using sta::LoadPinIndexMap;
+using sta::MinMax;
+using sta::Mode;
+using sta::Net;
+using sta::NetConnectedPinIterator;
+using sta::NetIterator;
+using sta::NetPinIterator;
+using sta::NetTermIterator;
+using sta::Network;
+using sta::Parasitic;
+using sta::Pin;
+using sta::PinConnectedPinIterator;
+using sta::Port;
+using sta::PortDirection;
+using sta::Pvt;
+using sta::RiseFall;
+using sta::RiseFallBoth;
+using sta::Scene;
+using sta::SceneSeq;
+using sta::Sdc;
+using sta::Slew;
+using sta::StaState;
+using sta::stringLess;
+using sta::TimingArc;
+using sta::TimingArcSet;
+using sta::TimingRole;
+using sta::Vertex;
+using sta::VertexInEdgeIterator;
+using sta::VertexIterator;
+using sta::VertexOutEdgeIterator;
+using sta::VertexSeq;
+using sta::VertexSet;
 
 using std::abs;
 using std::map;

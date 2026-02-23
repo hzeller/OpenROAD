@@ -55,8 +55,6 @@ class AnnealingStrategy final : public SlackTuningStrategy
       utl::Logger* logger) override;
 
  private:
-  sta::Scene* corner_;
-  sta::Slack slack_threshold_;
   std::optional<float> temperature_;
   std::optional<unsigned> revert_after_;
 };

@@ -9,19 +9,26 @@
 
 #include "aig/gia/gia.h"
 #include "cut/abc_library_factory.h"
+#include "db_sta/dbSta.hh"
 #include "gia.h"
+#include "resynthesis_strategy.h"
+#include "rsz/Resizer.hh"
 #include "slack_tuning_strategy.h"
 #include "sta/Delay.hh"
 #include "sta/Graph.hh"
 #include "utl/Logger.h"
 #include "utl/unique_name.h"
 
+namespace sta {
+class Scene;
+}  // namespace sta
+
 namespace rmp {
 
 class AnnealingStrategy final : public SlackTuningStrategy
 {
  public:
-  explicit AnnealingStrategy(sta::Corner* corner,
+  explicit AnnealingStrategy(sta::Scene* corner,
                              sta::Slack slack_threshold,
                              std::optional<std::mt19937::result_type> seed,
                              std::optional<float> temperature,
@@ -48,6 +55,8 @@ class AnnealingStrategy final : public SlackTuningStrategy
       utl::Logger* logger) override;
 
  private:
+  sta::Scene* corner_;
+  sta::Slack slack_threshold_;
   std::optional<float> temperature_;
   std::optional<unsigned> revert_after_;
 };

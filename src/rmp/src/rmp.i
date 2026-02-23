@@ -23,7 +23,7 @@ using ord::getRestructure;
 using ord::getOpenRoad;
 using odb::dbInst;
 using sta::LibertyPort;
-using sta::Corner;
+using sta::Scene;
 %}
 
 %include "../../Exception.i"
@@ -126,15 +126,15 @@ set_genetic_initial_ops(int genetic_initial_ops)
   getRestructure()->setGeneticInitialOps(genetic_initial_ops);
 }
 
- void resynth_cmd(Corner* corner) {
+void resynth_cmd(Scene* corner) {
   getRestructure()->resynth(corner);
 }
 
-void resynth_annealing_cmd(Corner* corner) {
+void resynth_annealing_cmd(Scene* corner) {
   getRestructure()->resynthAnnealing(corner);
 }
 
-void resynth_genetic_cmd(Corner* corner) {
+void resynth_genetic_cmd(Scene* corner) {
   getRestructure()->resynthGenetic(corner);
 }
 

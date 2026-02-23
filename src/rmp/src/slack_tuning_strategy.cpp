@@ -98,7 +98,7 @@ SolutionSlack::ResultOps SolutionSlack::RandomNeighbor(
 }
 
 static std::pair<sta::Slack, sta::Vertex*> GetWorstSlack(sta::dbSta* sta,
-                                                         sta::Corner* corner)
+                                                         sta::Scene* corner)
 {
   sta::Slack worst_slack;
   sta::Vertex* worst_vertex = nullptr;
@@ -109,7 +109,7 @@ static std::pair<sta::Slack, sta::Vertex*> GetWorstSlack(sta::dbSta* sta,
 sta::Vertex* SolutionSlack::Evaluate(
     const std::vector<sta::Vertex*>& candidate_vertices,
     cut::AbcLibrary& abc_library,
-    sta::Corner* corner,
+    sta::Scene* corner,
     sta::dbSta* sta,
     utl::UniqueName& name_generator,
     utl::Logger* logger)
@@ -142,7 +142,9 @@ void SlackTuningStrategy::OptimizeDesign(sta::dbSta* sta,
   sta->ensureGraph();
   sta->ensureLevelized();
   sta->searchPreamble();
-  sta->ensureClkNetwork();
+  for (auto mode : sta->modes()) {
+    sta->ensureClkNetwork(mode);
+  }
 
   auto candidate_vertices = GetEndpoints(sta, resizer, slack_threshold_);
   if (candidate_vertices.empty()) {

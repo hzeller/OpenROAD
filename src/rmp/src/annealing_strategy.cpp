@@ -59,7 +59,10 @@ std::vector<GiaOp> AnnealingStrategy::RunStrategy(
   sta::Slack worst_slack = *sol_slack.WorstSlack();
 
   if (!temperature_) {
-    sta::Delay required = sta->vertexRequired(worst_vertex, sta::MinMax::max());
+    sta::Delay required = sta->required(worst_vertex,
+                                        sta::RiseFallBoth::riseFall(),
+                                        sta->scenes(),
+                                        sta::MinMax::max());
     temperature_ = required;
   }
 

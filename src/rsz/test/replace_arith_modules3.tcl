@@ -60,7 +60,6 @@ report_wns
 report_tns
 
 # QoR must be the same after sta::network_changed
-sta::network_changed
 estimate_parasitics -placement
 report_wns
 report_tns

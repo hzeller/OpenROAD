@@ -31,7 +31,6 @@ set_debug_level ODB replace_design_check_sanity 1
 
 # Swap #1. BRENT_KUNG -> KOGGE_STONE
 replace_hier_module _551_ LCU_16_KOGGE_STONE
-sta::network_changed
 estimate_parasitics -placement
 report_checks -from {dpath.b_reg.out[4]$_DFFE_PP_/CLK} -through _carry_out_and_/C -field input
 report_cell_usage _551_
@@ -39,7 +38,6 @@ report_cell_usage _551_
 
 # Swap #2. KOGGE_STONE -> BRENT_KUNG (Rollback)
 replace_hier_module _551_ LCU_16_BRENT_KUNG
-sta::network_changed
 estimate_parasitics -placement
 report_checks -from {dpath.b_reg.out[4]$_DFFE_PP_/CLK} -through _carry_out_and_/C -field input
 report_cell_usage _551_
@@ -50,14 +48,12 @@ run_equivalence_test replace_hier_mod2 \
 
 # Swap #3. BRENT_KUNG -> KOGGE_STONE (Redo)
 replace_hier_module _551_ LCU_16_KOGGE_STONE
-sta::network_changed
 estimate_parasitics -placement
 report_checks -from {dpath.b_reg.out[4]$_DFFE_PP_/CLK} -through _carry_out_and_/C -field input
 report_cell_usage _551_
 
 # Swap #4. KOGGE_STONE -> BRENT_KUNG (Rollback again)
 replace_hier_module _551_ LCU_16_BRENT_KUNG
-sta::network_changed
 estimate_parasitics -placement
 report_checks -from {dpath.b_reg.out[4]$_DFFE_PP_/CLK} -through _carry_out_and_/C -field input
 report_cell_usage _551_

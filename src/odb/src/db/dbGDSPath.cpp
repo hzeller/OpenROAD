@@ -15,7 +15,6 @@
 #include "odb/db.h"
 #include "odb/dbTypes.h"
 #include "odb/geom.h"
-
 // User Code Begin Includes
 #include "dbGDSStructure.h"
 // User Code End Includes

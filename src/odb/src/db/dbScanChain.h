@@ -11,7 +11,6 @@
 #include "dbScanPin.h"
 #include "dbVector.h"
 #include "odb/dbId.h"
-
 // User Code Begin Includes
 #include <variant>
 

@@ -7,7 +7,6 @@
 #include <cstdint>
 
 #include "dbCore.h"
-
 // User Code Begin Includes
 #include "odb/dbId.h"
 // User Code End Includes

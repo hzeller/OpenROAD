@@ -16,7 +16,6 @@
 #include "dbTable.h"
 #include "odb/db.h"
 #include "odb/dbSet.h"
-
 // User Code Begin Includes
 #include <string_view>
 #include <variant>

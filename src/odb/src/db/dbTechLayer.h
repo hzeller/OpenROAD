@@ -13,7 +13,6 @@
 #include "dbVector.h"
 #include "odb/dbMatrix.h"
 #include "odb/dbTypes.h"
-
 // User Code Begin Includes
 #include "odb/dbId.h"
 #include "odb/dbObject.h"

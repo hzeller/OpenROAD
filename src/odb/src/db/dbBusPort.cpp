@@ -18,7 +18,6 @@
 #include "dbTable.h"
 #include "dbVector.h"
 #include "odb/db.h"
-
 // User Code Begin Includes
 #include "odb/dbSet.h"
 // User Code End Includes

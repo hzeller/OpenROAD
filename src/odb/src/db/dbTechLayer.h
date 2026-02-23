@@ -14,6 +14,9 @@
 #include "odb/dbMatrix.h"
 #include "odb/dbTypes.h"
 
+// User Code Begin Includes
+// User Code End Includes
+
 namespace odb {
 class dbIStream;
 class dbOStream;

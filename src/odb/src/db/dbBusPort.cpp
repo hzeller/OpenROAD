@@ -18,6 +18,9 @@
 #include "dbTable.h"
 #include "dbVector.h"
 #include "odb/db.h"
+
+// User Code Begin Includes
+// User Code End Includes
 namespace odb {
 template class dbTable<_dbBusPort>;
 

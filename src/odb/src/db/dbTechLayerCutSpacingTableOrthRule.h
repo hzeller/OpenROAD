@@ -9,6 +9,9 @@
 #include "dbCore.h"
 #include "dbVector.h"
 
+// User Code Begin Includes
+// User Code End Includes
+
 namespace odb {
 class dbIStream;
 class dbOStream;

@@ -11,6 +11,9 @@
 #include "dbChipRegionInst.h"
 #include "dbTable.h"
 
+// User Code Begin Includes
+// User Code End Includes
+
 namespace odb {
 
 ////////////////////////////////////////////////////////////////////

@@ -13,6 +13,9 @@
 #include "dbGDSStructure.h"
 #include "odb/dbId.h"
 
+// User Code Begin Includes
+// User Code End Includes
+
 namespace odb {
 class dbIStream;
 class dbOStream;

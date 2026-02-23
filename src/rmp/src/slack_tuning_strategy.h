@@ -6,6 +6,7 @@
 #include <optional>
 #include <random>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "cut/abc_library_factory.h"
@@ -52,12 +53,13 @@ class SolutionSlack final
                            utl::Logger* logger,
                            std::mt19937& random) const;
 
-  sta::Vertex* Evaluate(const std::vector<sta::Vertex*>& candidate_vertices,
-                        cut::AbcLibrary& abc_library,
-                        sta::Scene* corner,
-                        sta::dbSta* sta,
-                        utl::UniqueName& name_generator,
-                        utl::Logger* logger);
+  std::pair<sta::Slack, sta::Vertex*> Evaluate(
+      const std::vector<sta::Vertex*>& candidate_vertices,
+      cut::AbcLibrary& abc_library,
+      sta::Scene* corner,
+      sta::dbSta* sta,
+      utl::UniqueName& name_generator,
+      utl::Logger* logger);
   ResultOps Solution() const { return solution_; }
   ResultOps& Solution() { return solution_; }
   std::optional<sta::Slack> WorstSlack() const { return worst_slack_; }

@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/random/distributions.h"
 #include "cut/abc_library_factory.h"
 #include "db_sta/dbSta.hh"
 #include "gia.h"
@@ -46,7 +47,8 @@ std::vector<GiaOp> AnnealingStrategy::RunStrategy(
   std::vector<GiaOp> ops;
   ops.reserve(initial_ops_);
   for (size_t i = 0; i < initial_ops_; i++) {
-    ops.push_back(all_ops[random_() % all_ops.size()]);
+    const auto idx = absl::Uniform<size_t>(random_, 0, all_ops.size());
+    ops.push_back(all_ops[idx]);
   }
 
   SolutionSlack sol_slack{ops};
@@ -138,7 +140,7 @@ std::vector<GiaOp> AnnealingStrategy::RunStrategy(
           worst_slack,
           worst_slack_new,
           accept_prob);
-      if (std::uniform_real_distribution<float>(0, 1)(random_) < accept_prob) {
+      if (absl::Uniform<float>(random_, 0, 1) < accept_prob) {
         debugPrint(logger,
                    RMP,
                    "annealing",

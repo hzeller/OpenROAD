@@ -125,10 +125,8 @@ void dbSwapMasterSanityChecker::checkPortPinMatching()
   const std::string ctx = masterContext();
 
   // Count ModITerms while checking bidirectional links
-  int iterm_count = 0;
+  int iterm_count = new_mod_inst_->getModITerms().size();
   for (dbModITerm* iterm : new_mod_inst_->getModITerms()) {
-    ++iterm_count;
-
     dbModBTerm* child_bterm = iterm->getChildModBTerm();
     if (child_bterm == nullptr) {
       error("{}: ModITerm '{}' has null child ModBTerm", ctx, iterm->getName());
@@ -380,9 +378,8 @@ void dbSwapMasterSanityChecker::checkHashTableIntegrity()
 
   // ModBTerm hash
   int hash_bterm_count = static_cast<int>(mod_impl->modbterm_hash_.size());
-  int set_bterm_count = 0;
+  int set_bterm_count = new_master_->getModBTerms().size();
   for (dbModBTerm* bterm : new_master_->getModBTerms()) {
-    ++set_bterm_count;
     // Cross-check: findModBTerm should return same object
     dbModBTerm* found = new_master_->findModBTerm(bterm->getName());
     if (found != bterm) {
@@ -400,10 +397,7 @@ void dbSwapMasterSanityChecker::checkHashTableIntegrity()
 
   // ModNet hash
   int hash_net_count = static_cast<int>(mod_impl->modnet_hash_.size());
-  int set_net_count = 0;
-  for ([[maybe_unused]] dbModNet* net : new_master_->getModNets()) {
-    ++set_net_count;
-  }
+  int set_net_count = new_master_->getModNets().size();
   if (hash_net_count != set_net_count) {
     warn("{}: modnet_hash_ size ({}) != getModNets size ({})",
          ctx,
@@ -413,10 +407,7 @@ void dbSwapMasterSanityChecker::checkHashTableIntegrity()
 
   // ModInst hash
   int hash_modinst_count = static_cast<int>(mod_impl->modinst_hash_.size());
-  int set_modinst_count = 0;
-  for ([[maybe_unused]] dbModInst* mi : new_master_->getModInsts()) {
-    ++set_modinst_count;
-  }
+  int set_modinst_count = new_master_->getModInsts().size();
   if (hash_modinst_count != set_modinst_count) {
     warn("{}: modinst_hash_ size ({}) != getModInsts size ({})",
          ctx,
@@ -426,10 +417,7 @@ void dbSwapMasterSanityChecker::checkHashTableIntegrity()
 
   // dbInst hash
   int hash_dbinst_count = static_cast<int>(mod_impl->dbinst_hash_.size());
-  int set_dbinst_count = 0;
-  for ([[maybe_unused]] dbInst* inst : new_master_->getInsts()) {
-    ++set_dbinst_count;
-  }
+  int set_dbinst_count = new_master_->getInsts().size();
   if (hash_dbinst_count != set_dbinst_count) {
     warn("{}: dbinst_hash_ size ({}) != getInsts size ({})",
          ctx,

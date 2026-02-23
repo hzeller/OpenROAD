@@ -26,7 +26,20 @@
 
 namespace rsz {
 
-using namespace sta;  // NOLINT
+using sta::ArcDelay;
+using sta::Edge;
+using sta::Instance;
+using sta::LibertyCell;
+using sta::LibertyPort;
+using sta::MinMax;
+using sta::Path;
+using sta::PathExpanded;
+using sta::Pin;
+using sta::Scene;
+using sta::Slack;
+using sta::Slew;
+using sta::Vertex;
+using sta::VertexOutEdgeIterator;
 
 using std::pair;
 using std::string;

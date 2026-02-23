@@ -12,6 +12,7 @@
 #include "dbTable.h"
 
 // User Code Begin Includes
+#include "odb/dbObject.h"
 // User Code End Includes
 
 namespace odb {

@@ -13,6 +13,7 @@
 #include "odb/geom.h"
 
 // User Code Begin Includes
+#include "odb/dbObject.h"
 // User Code End Includes
 
 namespace odb {

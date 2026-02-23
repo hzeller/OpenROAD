@@ -19,6 +19,7 @@
 #include "odb/db.h"
 
 // User Code Begin Includes
+#include "utl/Logger.h"
 // User Code End Includes
 namespace odb {
 template class dbTable<_dbChipNet>;

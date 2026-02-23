@@ -12,6 +12,8 @@
 #include "odb/dbSet.h"
 
 // User Code Begin Includes
+#include <string>
+#include <unordered_map>
 // User Code End Includes
 
 namespace odb {

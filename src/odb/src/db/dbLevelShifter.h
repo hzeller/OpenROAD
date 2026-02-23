@@ -12,6 +12,7 @@
 #include "odb/dbId.h"
 
 // User Code Begin Includes
+#include <utility>
 // User Code End Includes
 
 namespace odb {

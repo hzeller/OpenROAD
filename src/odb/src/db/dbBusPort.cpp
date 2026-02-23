@@ -20,6 +20,7 @@
 #include "odb/db.h"
 
 // User Code Begin Includes
+#include "odb/dbSet.h"
 // User Code End Includes
 namespace odb {
 template class dbTable<_dbBusPort>;

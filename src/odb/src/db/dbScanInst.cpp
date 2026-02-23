@@ -19,6 +19,10 @@
 #include "odb/db.h"
 
 // User Code Begin Includes
+#include <string_view>
+#include <variant>
+
+#include "dbBlock.h"
 // User Code End Includes
 namespace odb {
 template class dbTable<_dbScanInst>;

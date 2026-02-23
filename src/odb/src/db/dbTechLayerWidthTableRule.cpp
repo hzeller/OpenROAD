@@ -14,6 +14,7 @@
 #include "odb/db.h"
 
 // User Code Begin Includes
+#include <vector>
 // User Code End Includes
 namespace odb {
 template class dbTable<_dbTechLayerWidthTableRule>;

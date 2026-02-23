@@ -14,6 +14,8 @@
 #include "odb/dbId.h"
 
 // User Code Begin Includes
+#include "odb/dbTypes.h"
+#include "odb/geom.h"
 // User Code End Includes
 
 namespace odb {

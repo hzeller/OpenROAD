@@ -981,8 +981,7 @@ void EstimateParasitics::insertViaResistances(odb::dbTechLayer* pin_layer,
                                   : pin_layer_idx - 1;
     const double cut_res
         = std::max(layer_res_[cut_layer_idx][corner->index()], 1.0e-3);
-    parasitics->makeResistor(
-        parasitic, resistor_id++, cut_res, pin_node, node);
+    parasitics->makeResistor(parasitic, resistor_id++, cut_res, pin_node, node);
   } else if (pin_layer_idx == tree_layer_idx) {
     // Add a small resistor between the pin node and tree node to keep
     // connectivity

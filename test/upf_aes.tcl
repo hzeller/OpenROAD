@@ -32,7 +32,7 @@ place_pins \
   -ver_layers met2
 global_placement -skip_initial_place -density uniform -routability_driven -timing_driven
 
-detailed_placement -max_displacement 1000
+detailed_placement -max_displacement 650
 improve_placement
 check_placement
 

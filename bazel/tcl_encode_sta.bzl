@@ -57,14 +57,14 @@ tcl_encode_sta = rule(
             default = "//src/sta:etc/TclEncode.tcl",
             allow_single_file = True,
         ),
+        "_tcl_library_files": attr.label(
+            default = "@tcl_lang//:tcl_core",
+            allow_files = True,
+        ),
         "_tclsh": attr.label(
             default = "@tcl_lang//:tclsh",
             executable = True,
             cfg = "exec",
-        ),
-        "_tcl_library_files": attr.label(
-            default = "@tcl_lang//:tcl_core",
-            allow_files = True,
         ),
     },
 )

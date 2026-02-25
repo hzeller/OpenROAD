@@ -51,7 +51,22 @@
 
 namespace rsz {
 
-using namespace sta;  // NOLINT
+using sta::Delay;
+using sta::Edge;
+using sta::fuzzyEqual;
+using sta::fuzzyGreater;
+using sta::fuzzyGreaterEqual;
+using sta::fuzzyLess;
+using sta::InstancePinIterator;
+using sta::Path;
+using sta::PathExpanded;
+using sta::Scene;
+using sta::Slack;
+using sta::TimingArc;
+using sta::Vertex;
+using sta::VertexInEdgeIterator;
+using sta::VertexOutEdgeIterator;
+using sta::VertexSet;
 
 using std::max;
 using std::pair;

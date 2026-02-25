@@ -37,6 +37,7 @@
 #include "sta/Parasitics.hh"
 #include "sta/ParasiticsClass.hh"
 #include "sta/Report.hh"
+#include "sta/Scene.hh"
 #include "sta/Sdc.hh"
 #include "sta/Transition.hh"
 #include "sta/Units.hh"
@@ -724,6 +725,7 @@ void EstimateParasitics::estimateWireParasiticSteiner(
   for (sta::Mode* mode : sta_->modes()) {
     if (!sta_->isIdealClock(drvr_pin, mode)) {
       all_modes_ideal_clock = false;
+      break;
     }
   }
 

@@ -38,6 +38,30 @@
 #include "utl/Logger.h"
 
 namespace rsz {
+
+using sta::ArcDelay;
+using sta::Cell;
+using sta::Edge;
+using sta::fuzzyGreater;
+using sta::GraphDelayCalc;
+using sta::INF;
+using sta::Instance;
+using sta::InstancePinIterator;
+using sta::InstanceSet;
+using sta::LibertyCell;
+using sta::LibertyPort;
+using sta::MinMax;
+using sta::Net;
+using sta::NetConnectedPinIterator;
+using sta::Pin;
+using sta::RiseFall;
+using sta::Scene;
+using sta::SceneSeq;
+using sta::Slack;
+using sta::Slew;
+using sta::Vertex;
+using sta::VertexOutEdgeIterator;
+
 using std::max;
 using std::string;
 using std::vector;
@@ -48,8 +72,6 @@ using odb::dbMaster;
 using odb::Point;
 
 using utl::RSZ;
-
-using namespace sta;  // NOLINT
 
 using InputSlews = std::array<Slew, RiseFall::index_count>;
 using TgtSlews = std::array<Slew, RiseFall::index_count>;

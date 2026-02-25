@@ -1301,7 +1301,7 @@ void NesterovPlace::destroyCbkGCell(odb::dbInst* db_inst)
                     replaced.first->getName());
       }
     }
-    if (replaced.second > 0) {
+    if (replaced.second >= 0) {
       destroyed = true;
     }
   }

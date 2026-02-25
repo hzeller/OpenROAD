@@ -20,7 +20,7 @@
 #include "slack_tuning_strategy.h"
 #include "sta/Delay.hh"
 #include "sta/Graph.hh"
-#include "sta/MinMax.hh"
+#include "utils.h"
 #include "utl/Logger.h"
 #include "utl/deleter.h"
 #include "utl/unique_name.h"

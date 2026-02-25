@@ -1250,7 +1250,6 @@ nesterovDbCbk::nesterovDbCbk(NesterovPlace* nesterov_place)
 
 void NesterovPlace::createCbkGCell(odb::dbInst* db_inst)
 {
-  // Always create gcell on top-level
   auto gcell_index = nbc_->createCbkGCell(db_inst);
 
   odb::dbRegion* region = db_inst->getRegion();

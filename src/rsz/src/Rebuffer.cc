@@ -50,7 +50,21 @@
 
 namespace rsz {
 
-using namespace sta;  // NOLINT
+using sta::ArcDcalcResult;
+using sta::ArcDelay;
+using sta::Arrival;
+using sta::Edge;
+using sta::fuzzyGreaterEqual;
+using sta::fuzzyLess;
+using sta::INF;
+using sta::LibertyPort;
+using sta::RiseFall;
+using sta::RiseFallBoth;
+using sta::Scene;
+using sta::Slew;
+using sta::TimingArc;
+using sta::TimingArcSet;
+using sta::VertexOutEdgeIterator;
 
 using odb::dbSigType;
 using std::make_shared;

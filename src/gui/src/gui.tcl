@@ -230,14 +230,7 @@ proc save_clocktree_image { args } {
   if { [info exists keys(-height)] } {
     set height $keys(-height)
   }
-  set scene ""
-  # accept -corner for compatibility
-  if { [info exists keys(-corner)] } {
-    set scene $keys(-corner)
-  }
-  if { [info exists keys(-scene)] } {
-    set scene $keys(-scene)
-  }
+  set scene [sta::parse_scene keys]
 
   if { [info exists keys(-clock)] } {
     set clock $keys(-clock)

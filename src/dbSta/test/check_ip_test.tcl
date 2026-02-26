@@ -22,33 +22,33 @@ puts "Loading: $test_def (track grid definitions)"
 read_def $test_def
 
 # Helper to run a test that expects failure
-proc test_check_fails {test_name master_name {extra_args ""}} {
-    puts "\n--- Test: $test_name ---"
-    puts "Testing master: $master_name"
-    set cmd "check_ip -master $master_name $extra_args"
-    puts "Command: $cmd"
-    if {[catch {eval $cmd} err]} {
-        puts "EXPECTED FAILURE: $err"
-        return 1
-    } else {
-        puts "UNEXPECTED PASS - this test should have failed!"
-        return 0
-    }
+proc test_check_fails { test_name master_name { extra_args "" } } {
+  puts "\n--- Test: $test_name ---"
+  puts "Testing master: $master_name"
+  set cmd "check_ip -master $master_name $extra_args"
+  puts "Command: $cmd"
+  if { [catch { eval $cmd } err] } {
+    puts "EXPECTED FAILURE: $err"
+    return 1
+  } else {
+    puts "UNEXPECTED PASS - this test should have failed!"
+    return 0
+  }
 }
 
 # Helper to run a test that expects success
-proc test_check_passes {test_name master_name {extra_args ""}} {
-    puts "\n--- Test: $test_name ---"
-    puts "Testing master: $master_name"
-    set cmd "check_ip -master $master_name $extra_args"
-    puts "Command: $cmd"
-    if {[catch {eval $cmd} err]} {
-        puts "UNEXPECTED FAILURE: $err"
-        return 0
-    } else {
-        puts "PASS: No warnings"
-        return 1
-    }
+proc test_check_passes { test_name master_name { extra_args "" } } {
+  puts "\n--- Test: $test_name ---"
+  puts "Testing master: $master_name"
+  set cmd "check_ip -master $master_name $extra_args"
+  puts "Command: $cmd"
+  if { [catch { eval $cmd } err] } {
+    puts "UNEXPECTED FAILURE: $err"
+    return 0
+  } else {
+    puts "PASS: No warnings"
+    return 1
+  }
 }
 
 puts "\n=============================================="

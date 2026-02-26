@@ -886,7 +886,6 @@ BufferedNetPtr Rebuffer::recoverArea(const BufferedNetPtr& root,
           -> int {
         node->setArrivalDelay(arrival);
         switch (node->type()) {
-          case BnetType::via:
           case BnetType::wire:
           case BnetType::buffer:
             recurse(node->ref(), arrival + node->delay());
@@ -907,18 +906,6 @@ BufferedNetPtr Rebuffer::recoverArea(const BufferedNetPtr& root,
       [&](auto& recurse, int level, const BnetPtr& node, int upstream_wl)
           -> BufferedNetSeq {
         switch (node->type()) {
-          case BnetType::via: {
-            BnetSeq opts = recurse(node->ref(), 0);
-            FixedDelay threshold = FixedDelay::lerp(
-                node->slack(), slack_target + node->arrivalDelay(), alpha);
-            insertBufferOptions(opts,
-                                level,
-                                /*next_segment_wl=*/upstream_wl,
-                                /*area_oriented=*/true,
-                                threshold,
-                                /*exemplar=*/node.get());
-            return opts;
-          }
           case BnetType::buffer:
           case BnetType::wire: {
             const BnetPtr& inner

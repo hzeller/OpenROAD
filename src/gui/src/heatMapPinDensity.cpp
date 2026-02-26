@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "gui/heatMap.h"
 #include "odb/db.h"
 #include "odb/dbTransform.h"
 #include "odb/dbTypes.h"
@@ -98,11 +99,6 @@ void PinDensityDataSource::onHide()
 }
 
 void PinDensityDataSource::inDbInstCreate(odb::dbInst*)
-{
-  destroyMap();
-}
-
-void PinDensityDataSource::inDbInstCreate(odb::dbInst*, odb::dbRegion*)
 {
   destroyMap();
 }

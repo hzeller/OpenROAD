@@ -12,6 +12,7 @@
 
 #include "grt/GlobalRouter.h"
 #include "gui/gui.h"
+#include "gui/heatMap.h"
 #include "odb/db.h"
 #include "odb/dbTypes.h"
 #include "odb/geom.h"
@@ -159,11 +160,6 @@ void RUDYDataSource::onHide()
 }
 
 void RUDYDataSource::inDbInstCreate(odb::dbInst*)
-{
-  destroyMap();
-}
-
-void RUDYDataSource::inDbInstCreate(odb::dbInst*, odb::dbRegion*)
 {
   destroyMap();
 }

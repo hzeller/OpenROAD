@@ -1321,7 +1321,8 @@ class dbBlock : public dbObject
   std::string makeNewModNetName(dbModule* parent,
                                 const char* base_name = "net",
                                 const dbNameUniquifyType& uniquify
-                                = dbNameUniquifyType::ALWAYS);
+                                = dbNameUniquifyType::ALWAYS,
+                                dbNet* corresponding_flat_net = nullptr);
   std::string makeNewInstName(dbModInst* parent = nullptr,
                               const char* base_name = "inst",
                               const dbNameUniquifyType& uniquify
@@ -8269,7 +8270,7 @@ class dbMarker : public dbObject
 
   std::string getName() const;
 
-  using MarkerShape = std::variant<Point, Line, Rect, Polygon>;
+  using MarkerShape = std::variant<Point, Line, Rect, Polygon, Cuboid>;
 
   dbMarkerCategory* getCategory() const;
   std::vector<MarkerShape> getShapes() const;
@@ -8282,6 +8283,7 @@ class dbMarker : public dbObject
   void addShape(const Line& line);
   void addShape(const Rect& rect);
   void addShape(const Polygon& polygon);
+  void addShape(const Cuboid& cuboid);
 
   void setTechLayer(dbTechLayer* layer);
 
@@ -8629,7 +8631,8 @@ class dbModNet : public dbObject
   static dbModNet* create(dbModule* parent_module, const char* base_name);
   static dbModNet* create(dbModule* parent_module,
                           const char* base_name,
-                          const dbNameUniquifyType& uniquify);
+                          const dbNameUniquifyType& uniquify,
+                          dbNet* corresponding_flat_net = nullptr);
   static dbSet<dbModNet>::iterator destroy(dbSet<dbModNet>::iterator& itr);
   static void destroy(dbModNet*);
   // User Code End dbModNet

@@ -27,6 +27,8 @@
 #include "dbDescriptors.h"
 #include "db_sta/dbSta.hh"
 #include "displayControls.h"
+#include "gui/gui.h"
+#include "layoutViewer.h"
 #include "odb/db.h"
 #include "utl/Logger.h"
 
@@ -658,11 +660,6 @@ void BrowserWidget::makeRowItems(QStandardItem* item,
 }
 
 void BrowserWidget::inDbInstCreate(odb::dbInst*)
-{
-  markModelModified();
-}
-
-void BrowserWidget::inDbInstCreate(odb::dbInst*, odb::dbRegion*)
 {
   markModelModified();
 }

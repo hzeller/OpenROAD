@@ -888,6 +888,7 @@ BufferedNetPtr Rebuffer::recoverArea(const BufferedNetPtr& root,
         switch (node->type()) {
           case BnetType::wire:
           case BnetType::buffer:
+          case BnetType::via:
             recurse(node->ref(), arrival + node->delay());
             break;
           case BnetType::junction:

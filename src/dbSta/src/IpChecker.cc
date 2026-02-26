@@ -3,13 +3,11 @@
 
 #include "db_sta/IpChecker.hh"
 
-
-#include <string>
-#include <cstdint>
-#include <vector>
 #include <algorithm>
 #include <cctype>
-
+#include <cstdint>
+#include <string>
+#include <vector>
 
 #include "db_sta/dbSta.hh"
 #include "odb/db.h"
@@ -99,9 +97,10 @@ void IpChecker::checkLefMaster(odb::dbMaster* master)
   if (!master) {
     return;
   }
-   // Only check BLOCK macros, not standard cells.
+  // Only check BLOCK macros, not standard cells.
   if (!master->isBlock()) {
-    logger_->info(utl::CHK, 8,
+    logger_->info(utl::CHK,
+                  8,
                   "Skipping master {} (class is not BLOCK)",
                   master->getName());
     return;
@@ -236,8 +235,8 @@ void IpChecker::checkPinRoutingGridAlignment(odb::dbMaster* master)
 
         odb::Rect rect = box->getBox();
         uint32_t min_width = layer->getWidth();
-        bool is_horizontal =
-            (layer->getDirection() == odb::dbTechLayerDir::HORIZONTAL);
+        bool is_horizontal
+            = (layer->getDirection() == odb::dbTechLayerDir::HORIZONTAL);
 
         // Only check minimum-width pins
         // For wider pins, routing might connect regardless of offset
@@ -260,8 +259,9 @@ void IpChecker::checkPinRoutingGridAlignment(odb::dbMaster* master)
     }
 
     // Sort to compute distances between consecutive pin centers.
-    // Sorting is needed because pins are collected per-mterm, not in spatial order.
-    // Consecutive distances after sorting give the minimal spacings whose GCD represents the pin grid.
+    // Sorting is needed because pins are collected per-mterm, not in spatial
+    // order. Consecutive distances after sorting give the minimal spacings
+    // whose GCD represents the pin grid.
     std::ranges::sort(centers);
     int distance_gcd = 0;
     for (size_t i = 1; i < centers.size(); i++) {
@@ -282,11 +282,10 @@ void IpChecker::checkPinRoutingGridAlignment(odb::dbMaster* master)
 
     // Compute the effective pitch across all track patterns on this layer.
     // Multiple patterns with different offsets create a finer effective pitch.
-    bool is_horizontal =
-        (layer->getDirection() == odb::dbTechLayerDir::HORIZONTAL);
-    int num_patterns = is_horizontal
-                           ? track_grid->getNumGridPatternsY()
-                           : track_grid->getNumGridPatternsX();
+    bool is_horizontal
+        = (layer->getDirection() == odb::dbTechLayerDir::HORIZONTAL);
+    int num_patterns = is_horizontal ? track_grid->getNumGridPatternsY()
+                                     : track_grid->getNumGridPatternsX();
 
     if (num_patterns == 0) {
       continue;
@@ -331,9 +330,9 @@ void IpChecker::checkPinRoutingGridAlignment(odb::dbMaster* master)
                     "Master {} signal pins on layer {} cannot be aligned "
                     "to any track pattern (pin distance GCD={} is not a "
                     "multiple of effective track pitch {})",
-                    master_name, 
+                    master_name,
                     layer->getName(),
-                    distance_gcd, 
+                    distance_gcd,
                     effective_pitch);
       warning_count_++;
     }
@@ -390,8 +389,8 @@ bool IpChecker::hasAccessibleEdge(odb::dbMaster* master,
   bool east_on_boundary = (pin_rect.xMax() >= macro_width);
   bool west_on_boundary = (pin_rect.xMin() <= 0);
 
-  if (north_on_boundary || south_on_boundary
-      || east_on_boundary || west_on_boundary) {
+  if (north_on_boundary || south_on_boundary || east_on_boundary
+      || west_on_boundary) {
     return true;  // Pin extends to macro boundary, accessible from outside
   }
 
@@ -572,9 +571,9 @@ void IpChecker::checkFinFetProperty(odb::dbMaster* master)
   for (odb::dbTechLayer* layer : tech->getLayers()) {
     std::string layer_name_lower = layer->getName();
     std::ranges::transform(layer_name_lower.begin(),
-                   layer_name_lower.end(),
-                   layer_name_lower.begin(),
-                   [](unsigned char c) { return std::tolower(c); });
+                           layer_name_lower.end(),
+                           layer_name_lower.begin(),
+                           [](unsigned char c) { return std::tolower(c); });
     if (layer_name_lower.find("fin") != std::string::npos) {
       logger_->info(
           utl::CHK, 80, "FinFET technology detected for {}", master->getName());

@@ -27,7 +27,7 @@ proc test_check_fails { test_name master_name { extra_args "" } } {
   puts "Testing master: $master_name"
   set cmd "check_ip -master $master_name $extra_args"
   puts "Command: $cmd"
-  if { [catch { eval $cmd } err] } {
+  if { [catch { eval { $cmd } } err] } {
     puts "EXPECTED FAILURE: $err"
     return 1
   } else {
@@ -42,7 +42,7 @@ proc test_check_passes { test_name master_name { extra_args "" } } {
   puts "Testing master: $master_name"
   set cmd "check_ip -master $master_name $extra_args"
   puts "Command: $cmd"
-  if { [catch { eval $cmd } err] } {
+  if { [catch { eval { $cmd } } err] } {
     puts "UNEXPECTED FAILURE: $err"
     return 0
   } else {
@@ -80,7 +80,8 @@ test_check_fails "LEF-CHK-003d: Multi-pattern still incompatible (FAIL)" "lef003
 test_check_fails "LEF-CHK-004-005a: Pin fully blocked (M1+M2)" "lef004_005a_fully_blocked"
 
 # Test 4-5b: LEF-CHK-004-005 - Pin blocked on M1 but accessible from M2 above (PASS)
-test_check_passes "LEF-CHK-004-005b: Blocked on M1 but from M2 (PASS)" "lef004_005b_multi_shape_pass"
+test_check_passes \
+  "LEF-CHK-004-005b: Blocked on M1 but from M2 (PASS)" "lef004_005b_multi_shape_pass"
 
 # Test 4-5c: LEF-CHK-004-005 - Power pin blocked on M1+M2 (FAIL)
 test_check_fails "LEF-CHK-004-005c: Power pin blocked (M1+M2)" "lef004_005c_power_blocked"
@@ -90,10 +91,12 @@ test_check_fails "LEF-CHK-004-005c: Power pin blocked (M1+M2)" "lef004_005c_powe
 test_check_passes "LEF-CHK-004-005d: Edge pin accessible from outside (PASS)" "lef004_005d_edge_pin"
 
 # Test 6a: LEF-CHK-006 - Excessive polygon count (below threshold = FAIL)
-test_check_fails "LEF-CHK-006: Excessive polygon count (threshold 5)" "lef006_polygon_count" "-max_polygons 5"
+test_check_fails \
+  "LEF-CHK-006: Excessive polygon count (threshold 5)" "lef006_polygon_count" "-max_polygons 5"
 
 # Test 6b: LEF-CHK-006 - Polygon count at threshold (should PASS)
-test_check_passes "LEF-CHK-006: Polygon count at threshold (threshold 6)" "lef006_polygon_count" "-max_polygons 6"
+test_check_passes \
+  "LEF-CHK-006: Polygon count at threshold (threshold 6)" "lef006_polygon_count" "-max_polygons 6"
 
 # Test 7: LEF-CHK-007 - Missing antenna info
 test_check_fails "LEF-CHK-007: Missing antenna model" "lef007_no_antenna"

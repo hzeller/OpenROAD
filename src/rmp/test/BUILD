@@ -160,6 +160,6 @@ cc_test(
         "@abc",
         "@googletest//:gtest",
         "@googletest//:gtest_main",
-        "@tk_tcl//:tcl",
+        "@tcl_lang//:tcl",
     ],
 )

@@ -82,12 +82,12 @@ bazel_dep(name = "googletest", version = "1.17.0.bcr.2", dev_dependency = True)
 # of this project generate stubs .ifso for things like X11 that will
 # allow openroad to link, but will search on the system at runtime for
 # the correct system libs.
-bazel_dep(name = "qt-bazel", version="1.2.3")
-git_override(
-    module_name = "qt-bazel",
-    commit = "df022f4ebaa4130713692fffd2f519d49e9d0b97",
-    remote = "https://github.com/The-OpenROAD-Project/qt_bazel_prebuilts",
-)
+#bazel_dep(name = "qt-bazel", version="1.2.3")
+#git_override(
+#    module_name = "qt-bazel",
+#    commit = "df022f4ebaa4130713692fffd2f519d49e9d0b97",
+#    remote = "https://github.com/The-OpenROAD-Project/qt_bazel_prebuilts",
+#)
 
 ## Lock the compiler version and avoid any local compiler
 bazel_dep(name = "toolchains_llvm", version = "1.5.0")

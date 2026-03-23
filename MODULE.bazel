@@ -13,14 +13,8 @@ bazel_dep(name = "platforms", version = "0.0.11")
 bazel_dep(name = "rules_bison", version = "0.3.1")
 bazel_dep(name = "rules_cc", version = "0.2.17")
 bazel_dep(name = "rules_flex", version = "0.3.1")
-bazel_dep(name = "rules_python", version = "1.8.5")
 bazel_dep(name = "rules_pkg", version = "1.2.0")
-
-# Used by chisel_binary from @bazel-orfs in test/orfs/mock-array
-bazel_dep(name = "rules_jvm_external", version = "6.4", dev_dependency = True)
-bazel_dep(name = "rules_chisel", version = "0.2.0", dev_dependency = True)
-bazel_dep(name = "rules_scala", version = "7.1.5", dev_dependency = True)
-
+bazel_dep(name = "rules_python", version = "1.8.5")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "rules_verilator", version = "0.1.0")
 bazel_dep(name = "swig", version = "4.3.0.bcr.2")
@@ -75,14 +69,6 @@ bazel_dep(name = "yaml-cpp", version = "0.9.0")
 bazel_dep(name = "tcl_lang", version = "8.6.16.bcr.1")
 bazel_dep(name = "readline", version = "8.2.bcr.3")
 
-# Make compilation DB (and possibly build cleaner)
-bazel_dep(name = "bant", version = "0.2.4", dev_dependency = True)
-bazel_dep(name = "googletest", version = "1.17.0.bcr.2", dev_dependency = True)
-
-# JavaScript unit tests
-bazel_dep(name = "aspect_rules_js", version = "3.0.2", dev_dependency = True)
-bazel_dep(name = "rules_nodejs", version = "6.7.3", dev_dependency = True)
-
 # A from source build of QT that allows it to link into OpenROAD.
 # Building like any other bazel project. scripts in the docker folder
 # of this project generate stubs .ifso for things like X11 that will
@@ -126,6 +112,57 @@ pip.parse(
     requirements_lock = "//bazel:requirements_lock_3_13.txt",
 )
 use_repo(pip, "openroad-pip")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "tclreadline",
+    build_file = "//bazel:tclreadline.BUILD",
+    sha256 = "a64e0faed5957b8e1ac16f179948e21cdd6d3b8313590b7ab049a3192ab864fb",
+    strip_prefix = "tclreadline-2.3.8",
+    urls = [
+        "https://github.com/flightaware/tclreadline/archive/refs/tags/v2.3.8.tar.gz",
+    ],
+)
+
+http_archive(
+    name = "circt",
+    build_file_content = """
+exports_files(glob(["bin/*"]), visibility = ["//visibility:public"])
+""",
+    sha256 = "b1b57d1b76ceba2bb37229dab53839d5db6d61394149708c71f6265565991ce6",
+    strip_prefix = "firtool-1.108.0",
+    url = "https://github.com/llvm/circt/releases/download/firtool-1.108.0/firrtl-bin-linux-x64.tar.gz",
+)
+
+http_archive(
+    name = "openmp",
+    build_file = "//bazel/openmp:bundled.BUILD.bazel",
+    sha256 = "213d234659d90de46617bd49abe1a1fc65a605988e376f00145d246cac040af6",
+    strip_prefix = "openmp-20.1.0.src",
+    urls = [
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.0/openmp-20.1.0.src.tar.xz",
+    ],
+)
+
+single_version_override(
+    module_name = "boost.context",
+    patch_strip = 1,
+    patches = ["//bazel:boost_context_disable_parse_headers.patch"],
+    version = BOOST_VERSION,
+)
+
+# -- Development dependencies: needed for testing and development, but not for :openroad
+
+# Run cc_test()s
+bazel_dep(name = "googletest", version = "1.17.0.bcr.2", dev_dependency = True)
+
+# Make compilation DB (and possibly build cleaner)
+bazel_dep(name = "bant", version = "0.2.4", dev_dependency = True)
+
+# JavaScript unit tests
+bazel_dep(name = "aspect_rules_js", version = "3.0.2", dev_dependency = True)
+bazel_dep(name = "rules_nodejs", version = "6.7.3", dev_dependency = True)
 
 node = use_extension(
     "@rules_nodejs//nodejs:extensions.bzl",
@@ -174,6 +211,9 @@ CHISEL_VERSION = "7.2.0"
 
 FIRTOOL_RESOLVER_VERSION = "2.0.1"
 
+# Scala
+bazel_dep(name = "rules_scala", version = "7.1.5", dev_dependency = True)
+
 scala_config = use_extension(
     "@rules_scala//scala/extensions:config.bzl",
     "scala_config",
@@ -194,6 +234,10 @@ scala_deps.settings(
 )
 scala_deps.scala()
 
+# Chisel
+# Used by chisel_binary from @bazel-orfs in test/orfs/mock-array
+bazel_dep(name = "rules_chisel", version = "0.2.0", dev_dependency = True)
+
 chisel = use_extension("@rules_chisel//chisel:extensions.bzl", "chisel")
 chisel.toolchain(
     chisel_version = CHISEL_VERSION,
@@ -201,6 +245,9 @@ chisel.toolchain(
     scala_version = SCALA_VERSION,
 )
 use_repo(chisel, "chisel_maven")
+
+# Maven
+bazel_dep(name = "rules_jvm_external", version = "6.4", dev_dependency = True)
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven", dev_dependency = True)
 maven.install(
@@ -216,42 +263,3 @@ maven.install(
     ],
 )
 use_repo(maven, "maven")
-
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "tclreadline",
-    build_file = "//bazel:tclreadline.BUILD",
-    sha256 = "a64e0faed5957b8e1ac16f179948e21cdd6d3b8313590b7ab049a3192ab864fb",
-    strip_prefix = "tclreadline-2.3.8",
-    urls = [
-        "https://github.com/flightaware/tclreadline/archive/refs/tags/v2.3.8.tar.gz",
-    ],
-)
-
-http_archive(
-    name = "circt",
-    build_file_content = """
-exports_files(glob(["bin/*"]), visibility = ["//visibility:public"])
-""",
-    sha256 = "b1b57d1b76ceba2bb37229dab53839d5db6d61394149708c71f6265565991ce6",
-    strip_prefix = "firtool-1.108.0",
-    url = "https://github.com/llvm/circt/releases/download/firtool-1.108.0/firrtl-bin-linux-x64.tar.gz",
-)
-
-http_archive(
-    name = "openmp",
-    build_file = "//bazel/openmp:bundled.BUILD.bazel",
-    sha256 = "213d234659d90de46617bd49abe1a1fc65a605988e376f00145d246cac040af6",
-    strip_prefix = "openmp-20.1.0.src",
-    urls = [
-        "https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.0/openmp-20.1.0.src.tar.xz",
-    ],
-)
-
-single_version_override(
-    module_name = "boost.context",
-    patch_strip = 1,
-    patches = ["//bazel:boost_context_disable_parse_headers.patch"],
-    version = BOOST_VERSION,
-)
